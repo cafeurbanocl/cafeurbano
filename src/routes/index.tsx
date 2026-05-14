@@ -143,8 +143,8 @@ const SECTIONS: Section[] = [
     id: "completos",
     title: "Completos",
     items: [
-      { name: "Completo Italiano", price: "$4.500", desc: "Vienesa con palta, tomate y mayo.", img: img("photo-1612392062798-2dfb1f218e9d") },
-      { name: "Completo Dinámico", price: "$4.200", desc: "Vienesa con tomate, mayo y chucrut.", img: img("photo-1619740455993-9d77a82c8559") },
+      { name: "Completo Italiano", price: "$4.500", desc: "Vienesa con palta, tomate y mayo.", img: img("photo-1599050751795-6cdaafbc2319") },
+      { name: "Completo Dinámico", price: "$4.200", desc: "Vienesa con tomate, mayo y chucrut.", img: img("photo-1604152135912-04a022e23696") },
       { name: "Completo Urbano XL", price: "$5.500", desc: "Vienesa XL con todos los ingredientes.", img: img("photo-1612392062422-ef19b42f74df") },
     ],
   },
