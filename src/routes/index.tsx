@@ -23,7 +23,10 @@ export const Route = createFileRoute("/")({
 type Item = { name: string; price: string; desc?: string; img: string };
 type Section = { id: string; title: string; emoji: string; note?: string; items: Item[] };
 
-const img = (q: string) => `https://source.unsplash.com/400x250/?${q},food`;
+// loremflickr devuelve una imagen distinta de Flickr para cada combinación de tags
+const img = (q: string) => `https://loremflickr.com/400/250/${q}?lock=${Math.abs(
+  q.split("").reduce((a, c) => ((a << 5) - a + c.charCodeAt(0)) | 0, 0)
+)}`;
 
 const SECTIONS: Section[] = [
   {
