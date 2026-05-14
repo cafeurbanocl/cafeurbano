@@ -233,7 +233,7 @@ const REVIEWS = [
 ];
 
 function Index() {
-  const [open, setOpen] = useState<Record<string, boolean>>({ cafeteria: true, sandwiches: true, hamburguesas: true });
+  const [open, setOpen] = useState<Record<string, boolean>>({});
   const [activeCat, setActiveCat] = useState<string>(SECTIONS[0].id);
   const sectionRefs = useRef<Record<string, HTMLElement | null>>({});
 
