@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
+import logoUrbano from "@/assets/cafe-urbano-logo.png";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -235,6 +236,7 @@ const REVIEWS = [
 function Index() {
   const [open, setOpen] = useState<Record<string, boolean>>({});
   const [activeCat, setActiveCat] = useState<string>(SECTIONS[0].id);
+  const [scrollY, setScrollY] = useState(0);
   const sectionRefs = useRef<Record<string, HTMLElement | null>>({});
 
   const toggle = (id: string) => setOpen((o) => ({ ...o, [id]: !o[id] }));
@@ -252,6 +254,7 @@ function Index() {
 
   useEffect(() => {
     const onScroll = () => {
+      setScrollY(window.scrollY);
       let current = SECTIONS[0].id;
       for (const s of SECTIONS) {
         const el = sectionRefs.current[s.id];
@@ -263,13 +266,29 @@ function Index() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // Logo scale: 1 at top → 0 as it shrinks into the sticky bar
+  const openCount = Object.values(open).filter(Boolean).length;
+  const baseSize = openCount > 0 ? 220 : 180; // crece cuando hay secciones abiertas
+  const progress = Math.min(1, scrollY / 220);
+  const logoSize = baseSize - progress * (baseSize - 44);
+  const headerLogoOpacity = 1 - progress;
+  const navLogoOpacity = progress;
+
   return (
     <div className="min-h-screen bg-primary">
       {/* HEADER */}
       <header className="bg-primary text-primary-foreground px-5 pt-7 pb-6 text-center shadow-lg">
-        <div className="inline-flex items-center justify-center mb-1">
-          <span className="font-display text-5xl tracking-wider leading-none">CAFÉ</span>
-          <span className="font-display text-5xl tracking-wider leading-none ml-2 px-2 bg-accent text-accent-foreground rounded">URBANO</span>
+        <div
+          className="mx-auto flex items-center justify-center transition-all duration-300 ease-out"
+          style={{ height: `${baseSize * (1 - progress) + 8}px`, opacity: headerLogoOpacity }}
+          aria-hidden={progress > 0.95}
+        >
+          <img
+            src={logoUrbano}
+            alt="Café Urbano logo"
+            style={{ width: `${logoSize}px`, height: `${logoSize}px` }}
+            className="object-contain drop-shadow-2xl transition-all duration-200 ease-out"
+          />
         </div>
         <p className="mt-3 text-sm text-white/95 font-medium">Sabor casero, ambiente urbano</p>
         <p className="text-xs text-white/80 mt-0.5">Mallplaza Calama</p>
@@ -277,20 +296,28 @@ function Index() {
 
       {/* STICKY CATEGORY BAR */}
       <nav className="sticky top-0 z-40 bg-primary border-b-2 border-accent shadow-md">
-        <div className="flex gap-2 overflow-x-auto no-scrollbar px-3 py-3">
-          {SECTIONS.map((s) => (
-            <button
-              key={s.id}
-              onClick={() => scrollTo(s.id)}
-              className={`shrink-0 px-4 py-2 rounded-full text-sm font-bold whitespace-nowrap transition-all ${
-                activeCat === s.id
-                  ? "bg-accent text-accent-foreground shadow"
-                  : "bg-white/15 text-white hover:bg-white/25"
-              }`}
-            >
-              {s.title}
-            </button>
-          ))}
+        <div className="flex items-center gap-2 px-3 py-3">
+          <img
+            src={logoUrbano}
+            alt="Café Urbano"
+            style={{ width: `${44 * progress}px`, opacity: navLogoOpacity }}
+            className="h-11 object-contain shrink-0 transition-all duration-200"
+          />
+          <div className="flex gap-2 overflow-x-auto no-scrollbar flex-1">
+            {SECTIONS.map((s) => (
+              <button
+                key={s.id}
+                onClick={() => scrollTo(s.id)}
+                className={`shrink-0 px-4 py-2 rounded-full text-sm font-bold whitespace-nowrap transition-all ${
+                  activeCat === s.id
+                    ? "bg-accent text-accent-foreground shadow"
+                    : "bg-white/15 text-white hover:bg-white/25"
+                }`}
+              >
+                {s.title}
+              </button>
+            ))}
+          </div>
         </div>
       </nav>
 
