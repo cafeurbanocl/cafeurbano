@@ -72,14 +72,18 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
+      { title: "Café Urbano" },
+      { name: "description", content: "Digital QR menu for Café Urbano, featuring a mobile-first design with appealing visuals and easy navigation." },
       { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { property: "og:title", content: "Café Urbano" },
+      { property: "og:description", content: "Digital QR menu for Café Urbano, featuring a mobile-first design with appealing visuals and easy navigation." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:title", content: "Café Urbano" },
+      { name: "twitter:description", content: "Digital QR menu for Café Urbano, featuring a mobile-first design with appealing visuals and easy navigation." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/a30e3d2f-18ef-45c6-85c5-a28a37374ed4/id-preview-6e112314--1e0e9db1-5b21-4e0d-b4f2-dfc80383d4a8.lovable.app-1778721673362.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/a30e3d2f-18ef-45c6-85c5-a28a37374ed4/id-preview-6e112314--1e0e9db1-5b21-4e0d-b4f2-dfc80383d4a8.lovable.app-1778721673362.png" },
     ],
     links: [
       {
