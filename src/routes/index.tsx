@@ -23,10 +23,185 @@ export const Route = createFileRoute("/")({
 type Item = { name: string; price: string; desc?: string; img: string };
 type Section = { id: string; title: string; emoji: string; note?: string; items: Item[] };
 
-// loremflickr devuelve una imagen distinta de Flickr para cada combinación de tags
-const img = (q: string) => `https://loremflickr.com/400/250/${q}?lock=${Math.abs(
-  q.split("").reduce((a, c) => ((a << 5) - a + c.charCodeAt(0)) | 0, 0)
-)}`;
+// Mapa curado: keyword único -> ID de foto real de Unsplash
+const PHOTO_MAP: Record<string, string> = {
+  // CAFETERÍA
+  "velvet-coffee": "photo-1517701604599-bb29b565090c",
+  "irish-coffee": "photo-1514432324607-a09d9b4aefdd",
+  "chai-latte": "photo-1561336313-0bd5e0b27ec8",
+  "hot-chocolate-marshmallow": "photo-1542990253-0d0f5be5f0ed",
+  "amaretto-coffee": "photo-1485808191679-5f86510681a2",
+  "mint-coffee": "photo-1461023058943-07fcbe16d735",
+  "kahlua-coffee": "photo-1534687941688-651ccaafbff8",
+  "whisky-coffee": "photo-1521017432531-fbd92d768814",
+  "hot-chocolate": "photo-1542990253-0d0f5be5f0ed",
+  "cinnamon-coffee": "photo-1497636577773-f1231844b336",
+  "caramel-coffee": "photo-1534687941688-651ccaafbff8",
+  "vienna-cappuccino": "photo-1572442388796-11668a67e53d",
+  "cappuccino": "photo-1534778101976-62847782c213",
+  "double-cortado": "photo-1517701604599-bb29b565090c",
+  "cortado": "photo-1497636577773-f1231844b336",
+  "milk-coffee": "photo-1495474472287-4d71bcdd2085",
+  "americano-coffee": "photo-1509042239860-f550ce710b93",
+  "double-espresso": "photo-1510591509098-f4fdc6d0ff04",
+  "milk-tea": "photo-1576092768241-dec231879fc3",
+  "ristretto": "photo-1510707577719-ae7c14805e3a",
+  "espresso": "photo-1510591509098-f4fdc6d0ff04",
+  "dilmah-tea": "photo-1597318181409-cf64d0b5d8a2",
+  "nescafe": "photo-1495474472287-4d71bcdd2085",
+  "lipton-tea": "photo-1576092768241-dec231879fc3",
+  "herbal-tea": "photo-1597318181409-cf64d0b5d8a2",
+
+  // SANDWICHES
+  "urbano-sandwich": "photo-1553909489-cd47e0907980",
+  "chilean-sandwich": "photo-1481070414801-51fd732d7184",
+  "avocado-sandwich": "photo-1528735602780-2552fd46c7af",
+  "german-sandwich": "photo-1550507992-eb63ffee0847",
+  "american-sandwich": "photo-1539252554935-80c8cabf1a17",
+  "chacarero": "photo-1521305916504-4a1121188589",
+  "swiss-sandwich": "photo-1606755962773-d324e9a13086",
+  "pizza-sandwich": "photo-1565299624946-b28f40a0ae38",
+  "greek-sandwich": "photo-1539252554935-80c8cabf1a17",
+  "french-sandwich": "photo-1559054663-e8d23213f55c",
+  "roman-sandwich": "photo-1592415486689-125cbbfcbee2",
+  "cuban-sandwich": "photo-1554433607-66b5efe9d304",
+  "spanish-sandwich": "photo-1567234669003-dce7a7a88821",
+  "italian-sandwich": "photo-1592415486689-125cbbfcbee2",
+  "brazilian-sandwich": "photo-1521305916504-4a1121188589",
+  "york-sandwich": "photo-1606755962773-d324e9a13086",
+  "florentino-sandwich": "photo-1528735602780-2552fd46c7af",
+  "turkish-sandwich": "photo-1481070414801-51fd732d7184",
+  "lettuce-sandwich": "photo-1539252554935-80c8cabf1a17",
+  "ham-cheese-sandwich": "photo-1554433607-66b5efe9d304",
+  "egg-sandwich": "photo-1559054663-e8d23213f55c",
+  "cheese-sandwich": "photo-1567234669003-dce7a7a88821",
+
+  // HAMBURGUESAS
+  "urban-burger": "photo-1568901346375-23c9450c58cd",
+  "farmer-burger": "photo-1586190848861-99aa4a171e90",
+  "texan-bbq-burger": "photo-1553979459-d2229ba7433b",
+  "german-burger": "photo-1550317138-10000687a72b",
+  "classic-cheeseburger": "photo-1571091718767-18b5b1457add",
+
+  // TOSTADAS
+  "poached-egg-toast": "photo-1525351484163-7529414344d8",
+  "ham-cheese-egg-toast": "photo-1484723091739-30a097e8f929",
+  "bacon-egg-toast": "photo-1528207776546-365bb710ee93",
+  "ham-egg-toast": "photo-1484723091739-30a097e8f929",
+  "cheese-egg-toast": "photo-1525351484163-7529414344d8",
+  "scrambled-eggs-toast": "photo-1482049016688-2d3e1b311543",
+  "avocado-ham-toast": "photo-1603046891744-1f76eb10aec1",
+  "avocado-toast": "photo-1603046891744-1f76eb10aec1",
+  "jam-toast": "photo-1568051243851-f9b136146e97",
+  "butter-toast": "photo-1486328228599-85db4443971f",
+
+  // PRENSADOS
+  "pressed-sandwich-tomato": "photo-1528735602780-2552fd46c7af",
+  "pressed-ham-cheese": "photo-1606755962773-d324e9a13086",
+  "pressed-cheese": "photo-1528736235302-52922df5c122",
+
+  // OMELETTE
+  "urban-omelette": "photo-1510693206972-df098062cb71",
+  "cheese-omelette": "photo-1525351484163-7529414344d8",
+  "bacon-omelette": "photo-1482049016688-2d3e1b311543",
+
+  // SIN CARNE
+  "tuna-salad-sandwich": "photo-1546069901-ba9599a7e63c",
+  "vegetarian-sandwich": "photo-1540420773420-3366772f4999",
+  "tuna-mayo": "photo-1546069901-ba9599a7e63c",
+  "veggie-sandwich": "photo-1540420773420-3366772f4999",
+
+  // COMPLETOS (hot dogs)
+  "mexican-hotdog": "photo-1612392062798-2dcefcfb39e6",
+  "spanish-hotdog": "photo-1619740455993-9e612b1af08a",
+  "bacon-hotdog": "photo-1612392061787-2d078b3e573a",
+  "italian-hotdog": "photo-1619740455993-9e612b1af08a",
+  "hotdog": "photo-1612392062798-2dcefcfb39e6",
+
+  // ENSALADAS
+  "caesar-salad": "photo-1512621776951-a57141f2eefd",
+  "hearts-of-palm-salad": "photo-1505253716362-afaea1d3d1af",
+  "greek-salad": "photo-1540420773420-3366772f4999",
+
+  // WRAPS
+  "chicken-wrap": "photo-1626700051175-6818013e1d4f",
+  "light-wrap": "photo-1607013251379-e6eecfffe234",
+  "mixed-wrap": "photo-1565299585323-38d6b0865b47",
+
+  // PICOTEO
+  "loaded-fries-meat": "photo-1541592106381-b31e9677c0e5",
+  "pichanga": "photo-1573080496219-bb080dd4f877",
+  "chorrillana": "photo-1573080496219-bb080dd4f877",
+  "nuggets-fries": "photo-1562967914-608f82629710",
+  "french-fries": "photo-1573080496219-bb080dd4f877",
+
+  // PLATOS EXTRAS
+  "beef-stir-fry": "photo-1603360946369-dc9bb6258143",
+  "steak-fries-egg": "photo-1546964124-0cce460f38ef",
+  "chicken-stir-fry": "photo-1604908176997-125f25cc6f3d",
+  "ribeye-steak": "photo-1546964124-0cce460f38ef",
+  "fried-chicken-pieces": "photo-1562967914-608f82629710",
+  "steak-poor-mans": "photo-1532636721-c4e2750e2bb6",
+  "grilled-steak": "photo-1558030006-450675393462",
+  "chicken-breast-fries": "photo-1532550907401-a500c9a57435",
+  "grilled-chicken-breast": "photo-1532550907401-a500c9a57435",
+
+  // COPA HELADOS
+  "profiterole-sundae": "photo-1488477181946-6428a0291777",
+  "banana-split": "photo-1563805042-7684c019e1cb",
+  "iced-coffee-baileys": "photo-1517701604599-bb29b565090c",
+  "oreo-milkshake": "photo-1572490122747-3e9be21bdf4b",
+  "chocolate-icecream": "photo-1563805042-7684c019e1cb",
+  "iced-coffee": "photo-1461023058943-07fcbe16d735",
+  "milkshake": "photo-1572490122747-3e9be21bdf4b",
+  "ice-cream-sundae": "photo-1488900128323-21503983a07e",
+  "fruit-sundae": "photo-1497034825429-c343d7c6a68f",
+  "kids-icecream": "photo-1497034825429-c343d7c6a68f",
+  "simple-icecream": "photo-1488900128323-21503983a07e",
+
+  // DULCERÍA
+  "alaska-pancake": "photo-1528207776546-365bb710ee93",
+  "dulce-de-leche-pancake": "photo-1567620905732-2d1ec7ab7445",
+  "cake-slice": "photo-1565958011703-44f9829ba187",
+  "lemon-pie": "photo-1551024601-bec78aea704b",
+  "apple-kuchen": "photo-1568571780765-9276ac8b75a2",
+
+  // PARA BEBER
+  "vitamin-juice": "photo-1600271886742-f049cd451bba",
+  "juice-icecream": "photo-1497034825429-c343d7c6a68f",
+  "fruit-milk": "photo-1553530666-ba11a7da3888",
+  "mixed-juice": "photo-1622597467836-f3285f2131b8",
+  "fresh-juice": "photo-1600271886742-f049cd451bba",
+  "mint-ginger-lemonade": "photo-1556679343-c7306c1976bc",
+  "lemonade": "photo-1556679343-c7306c1976bc",
+  "monster-energy": "photo-1622543925917-763c34d1a86e",
+  "redbull": "photo-1622543925917-763c34d1a86e",
+  "mineral-water": "photo-1548839140-29a749e1cf4d",
+  "energy-drink": "photo-1622543925917-763c34d1a86e",
+  "soda-can": "photo-1554866585-cd94860890b7",
+  "redbull-small": "photo-1622543925917-763c34d1a86e",
+  "spring-water": "photo-1548839140-29a749e1cf4d",
+
+  // CERVEZAS
+  "craft-beer-bottle": "photo-1535958636474-b021ee887b13",
+  "patagonia-beer": "photo-1608270586620-248524c67de9",
+  "fruit-beer": "photo-1566633806327-68e152aaf26d",
+  "maqui-beer": "photo-1535958636474-b021ee887b13",
+  "kunstmann-beer": "photo-1608270586620-248524c67de9",
+  "draft-beer": "photo-1618183479302-1e0aa382c36b",
+  "austral-beer": "photo-1535958636474-b021ee887b13",
+  "heineken": "photo-1618183479302-1e0aa382c36b",
+  "heineken-zero": "photo-1618183479302-1e0aa382c36b",
+  "lager-beer": "photo-1608270586620-248524c67de9",
+  "amber-beer": "photo-1566633806327-68e152aaf26d",
+  "valdivia-beer": "photo-1608270586620-248524c67de9",
+};
+
+const FALLBACK_PHOTO = "photo-1504674900247-0877df9cc836";
+
+const img = (q: string) =>
+  `https://images.unsplash.com/${PHOTO_MAP[q] ?? FALLBACK_PHOTO}?auto=format&fit=crop&w=400&h=250&q=70`;
+
 
 const SECTIONS: Section[] = [
   {
