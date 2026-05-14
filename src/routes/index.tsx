@@ -143,8 +143,8 @@ const SECTIONS: Section[] = [
     id: "completos",
     title: "Completos",
     items: [
-      { name: "Completo Italiano", price: "$4.500", desc: "Vienesa con palta, tomate y mayo.", img: img("photo-1612392062798-2dfb1f218e9d") },
-      { name: "Completo Dinámico", price: "$4.200", desc: "Vienesa con tomate, mayo y chucrut.", img: img("photo-1619740455993-9d77a82c8559") },
+      { name: "Completo Italiano", price: "$4.500", desc: "Vienesa con palta, tomate y mayo.", img: img("photo-1599050751795-6cdaafbc2319") },
+      { name: "Completo Dinámico", price: "$4.200", desc: "Vienesa con tomate, mayo y chucrut.", img: img("photo-1604152135912-04a022e23696") },
       { name: "Completo Urbano XL", price: "$5.500", desc: "Vienesa XL con todos los ingredientes.", img: img("photo-1612392062422-ef19b42f74df") },
     ],
   },
@@ -361,6 +361,13 @@ function Index() {
                               src={it.img}
                               alt={it.name}
                               loading="lazy"
+                              onError={(e) => {
+                                const t = e.currentTarget;
+                                if (!t.dataset.fallback) {
+                                  t.dataset.fallback = "1";
+                                  t.src = "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=600&q=70";
+                                }
+                              }}
                               className="w-20 h-20 rounded-lg object-cover shrink-0 bg-muted"
                             />
                             <div className="flex-1 min-w-0 flex flex-col justify-between">
