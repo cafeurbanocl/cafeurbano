@@ -319,8 +319,8 @@ function Index() {
                   </span>
                 </button>
 
-                <div className={`acc-grid`} style={{ gridTemplateRows: isOpen ? "1fr" : "0fr" }}>
-                  <div>
+                {isOpen && (
+                  <div className="animate-in fade-in slide-in-from-top-2 duration-300">
                     <div className="px-4 pb-5">
                       {section.note && (
                         <div className="mb-4 bg-accent/20 border-l-4 border-accent px-3 py-2 rounded-r-lg">
