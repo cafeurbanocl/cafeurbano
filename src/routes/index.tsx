@@ -361,6 +361,13 @@ function Index() {
                               src={it.img}
                               alt={it.name}
                               loading="lazy"
+                              onError={(e) => {
+                                const t = e.currentTarget;
+                                if (!t.dataset.fallback) {
+                                  t.dataset.fallback = "1";
+                                  t.src = "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=600&q=70";
+                                }
+                              }}
                               className="w-20 h-20 rounded-lg object-cover shrink-0 bg-muted"
                             />
                             <div className="flex-1 min-w-0 flex flex-col justify-between">
