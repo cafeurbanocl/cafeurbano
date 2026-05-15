@@ -558,7 +558,7 @@ function Index() {
       </div>
 
       {/* STICKY CATEGORY BAR */}
-      <nav className="sticky top-0 z-40 shadow-lg" style={{ background: "#1a1a1a", borderBottom: "2px solid #CC0000" }}>
+      <nav className="sticky top-0 z-40 shadow-lg" style={{ background: "#111111", borderBottom: "2px solid #CC0000" }}>
         <div className="flex items-center gap-2 px-3 py-2.5">
           <img
             src={logoUrbano}
@@ -573,10 +573,15 @@ function Index() {
                 <button
                   key={s.id}
                   onClick={() => scrollTo(s.id)}
-                  className="shrink-0 px-4 py-2 rounded-full text-xs font-bold whitespace-nowrap transition-all"
+                  className="shrink-0 whitespace-nowrap transition-all"
                   style={{
-                    background: isActive ? "#CC0000" : "#333",
-                    color: isActive ? "#fff" : "#ddd",
+                    fontSize: "13px",
+                    fontWeight: 600,
+                    padding: "8px 16px",
+                    borderRadius: "20px",
+                    background: isActive ? "#CC0000" : "#2a2a2a",
+                    color: isActive ? "#FFFFFF" : "#BBBBBB",
+                    border: isActive ? "1px solid #CC0000" : "1px solid #444",
                     boxShadow: isActive ? "0 4px 10px rgba(204,0,0,0.4)" : "none",
                   }}
                 >
