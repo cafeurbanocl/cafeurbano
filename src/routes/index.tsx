@@ -541,18 +541,18 @@ function Index() {
 
 
       {/* MENÚ DEL DÍA BANNER */}
-      <div className="px-4 py-4 border-y-2" style={{ background: "#CC0000", borderColor: "#FFD700" }}>
+      <div style={{ background: "#8B0000", borderBottom: "2px solid #FFD700", padding: "16px 20px" }}>
         <div className="text-center">
-          <div className="font-extrabold text-xl mb-1" style={{ color: "#FFD700" }}>
+          <div className="mb-1" style={{ fontSize: "16px", fontWeight: 700, color: "#FFD700" }}>
             ⭐ MENÚ DEL DÍA ⭐
           </div>
-          <p className="text-xs leading-relaxed text-white/95">
-            <span style={{ color: "#FFD700" }} className="font-bold">2 entradas</span> (caliente o fría) ·{" "}
-            <span style={{ color: "#FFD700" }} className="font-bold">3–4 fondos</span> a elección (incluye hipocalórico) ·{" "}
-            <span style={{ color: "#FFD700" }} className="font-bold">postre</span> a elección
+          <p style={{ fontSize: "14px", color: "#FFFFFF", lineHeight: 2 }}>
+            <span style={{ color: "#FFD700", fontWeight: 700 }}>2 entradas</span> (caliente o fría) ·{" "}
+            <span style={{ color: "#FFD700", fontWeight: 700 }}>3–4 fondos</span> a elección (incluye hipocalórico) ·{" "}
+            <span style={{ color: "#FFD700", fontWeight: 700 }}>postre</span> a elección
           </p>
-          <p className="text-[11px] mt-1.5 text-white/90">
-            Bebida <span style={{ color: "#FFD700" }} className="font-bold">incluida lunes a viernes</span> · separada sábado y domingo
+          <p style={{ fontSize: "13px", color: "#FFFFFF", lineHeight: 1.8 }}>
+            Bebida <span style={{ color: "#FFD700", fontWeight: 700 }}>incluida lunes a viernes</span> · separada sábado y domingo
           </p>
         </div>
       </div>
