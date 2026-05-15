@@ -603,17 +603,17 @@ function Index() {
                 key={section.id}
                 id={section.id}
                 ref={(el) => { sectionRefs.current[section.id] = el; }}
-                className="rounded-xl overflow-hidden shadow-xl scroll-mt-32"
-                style={{ background: "#2a2a2a", border: "1px solid #333" }}
+                className="rounded-xl overflow-hidden scroll-mt-32"
+                style={{ background: "#2a2a2a", border: "1px solid #444444", boxShadow: "0 4px 12px rgba(0,0,0,0.4)" }}
               >
                 <button
                   onClick={() => toggle(section.id)}
-                  className="w-full flex items-center justify-between px-4 py-4"
-                  style={{ background: "#222" }}
+                  className="w-full flex items-center justify-between"
+                  style={{ background: "#1e1e1e", borderBottom: "2px solid #CC0000", padding: "14px 20px" }}
                 >
                   <h2
-                    className="font-extrabold text-lg tracking-wide uppercase text-left"
-                    style={{ color: "#CC0000" }}
+                    className="text-left"
+                    style={{ fontSize: "18px", fontWeight: 800, color: "#FF2222", textTransform: "uppercase", letterSpacing: "1.5px" }}
                   >
                     <span className="mr-2">{section.emoji}</span>
                     {section.title}
@@ -632,18 +632,31 @@ function Index() {
                     <div className="px-3 pt-3 pb-4">
                       {section.note && (
                         <div
-                          className="mb-3 px-3 py-2 rounded-lg text-[11px] italic"
-                          style={{ background: "rgba(255,215,0,0.08)", color: "#FFD700", border: "1px solid rgba(255,215,0,0.25)" }}
+                          className="mb-3"
+                          style={{
+                            fontSize: "13px",
+                            color: "#FFD700",
+                            background: "rgba(139,0,0,0.3)",
+                            padding: "8px 12px",
+                            borderRadius: "6px",
+                            borderLeft: "3px solid #CC0000",
+                          }}
                         >
                           {section.note}
                         </div>
                       )}
-                      <ul className="space-y-2.5">
+                      <ul className="flex flex-col" style={{ gap: "16px" }}>
                         {section.items.map((it, i) => (
                           <li
                             key={i}
-                            className="flex gap-3 rounded-xl p-2.5"
-                            style={{ background: "#2a2a2a", border: "1px solid #333" }}
+                            className="flex gap-3"
+                            style={{
+                              background: "#2a2a2a",
+                              border: "1px solid #444444",
+                              padding: "16px",
+                              borderRadius: "12px",
+                              boxShadow: "0 4px 12px rgba(0,0,0,0.4)",
+                            }}
                           >
                             <img
                               src={it.img}
@@ -661,15 +674,17 @@ function Index() {
                             />
                             <div className="flex-1 min-w-0 flex flex-col justify-between">
                               <div>
-                                <h3 className="font-bold text-sm leading-tight text-white">{it.name}</h3>
+                                <h3 style={{ fontSize: "16px", fontWeight: 700, color: "#FFFFFF", letterSpacing: "0.3px", lineHeight: 1.25 }}>
+                                  {it.name}
+                                </h3>
                                 {it.desc && (
-                                  <p className="text-[11px] italic mt-1 leading-snug" style={{ color: "#aaa" }}>
+                                  <p style={{ fontSize: "13px", color: "#CCCCCC", lineHeight: 1.6, fontStyle: "italic", marginTop: "4px" }}>
                                     {it.desc}
                                   </p>
                                 )}
                               </div>
-                              <div className="mt-1.5">
-                                <span className="font-bold text-lg" style={{ color: "#FFD700" }}>
+                              <div style={{ marginTop: "8px" }}>
+                                <span style={{ fontSize: "18px", fontWeight: 800, color: "#FFD700", letterSpacing: "0.5px" }}>
                                   {it.price}
                                 </span>
                               </div>
