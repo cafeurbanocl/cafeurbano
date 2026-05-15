@@ -501,7 +501,7 @@ function Index() {
   const navLogoOpacity = progress;
 
   return (
-    <div className="min-h-screen" style={{ background: "#1a1a1a", fontFamily: "Poppins, system-ui, sans-serif" }}>
+    <div className="min-h-screen" style={{ background: "#111111", fontFamily: "Poppins, system-ui, sans-serif" }}>
       {/* HEADER */}
       {(() => {
         const bgOpacity = Math.min(1, scrollY / 80);
