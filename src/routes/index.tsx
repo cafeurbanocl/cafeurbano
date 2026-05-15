@@ -250,7 +250,7 @@ const SECTIONS: Section[] = [
       { name: "Americano", price: "$8.200", desc: "Churrasco o ave, jamón, queso fundido y huevo frito.", img: img("american-sandwich") },
       { name: "Chacarero", price: "$8.100", desc: "Churrasco o ave, tomate, porotos verdes y ají verde.", img: img("chacarero") },
       { name: "Suizo", price: "$7.900", desc: "Churrasco o ave, tomate, jamón, queso fundido y tocino.", img: img("swiss-sandwich") },
-      { name: "Pizza", price: "$7.900", desc: "Jamón, tomate, orégano y queso fundido.", img: img("pizza-sandwich") },
+      { name: "Pizza Sandwich", price: "$7.900", desc: "Jamón, tomate, orégano y queso fundido — inspirado en los sabores de una pizza clásica", img: "https://images.unsplash.com/photo-1590947132387-155cc02f3212?w=400&h=250&fit=crop" },
       { name: "Griego", price: "$7.900", desc: "Churrasco o ave, lechuga, tomate y huevo frito.", img: img("greek-sandwich") },
       { name: "Francés", price: "$7.800", desc: "Churrasco o ave, palta, tomate y lechuga.", img: img("french-sandwich") },
       { name: "Romano", price: "$7.800", desc: "Churrasco o ave, jamón, queso fundido y aceitunas.", img: img("roman-sandwich") },
@@ -594,7 +594,7 @@ function Index() {
       </nav>
 
       {/* SECTIONS */}
-      <main className="pb-10">
+      <main style={{ paddingBottom: "200px" }}>
         <div className="space-y-3 px-3 pt-4">
           {SECTIONS.map((section) => {
             const isOpen = !!open[section.id];
@@ -702,21 +702,36 @@ function Index() {
       </main>
 
       {/* FOOTER */}
-      <footer className="px-5 py-7 text-center" style={{ background: "#0d0d0d", color: "#fff" }}>
-        <div className="font-extrabold text-2xl tracking-wide mb-2">
+      <footer style={{ background: "#0a0a0a", borderTop: "2px solid #CC0000", padding: "24px 20px", textAlign: "center" }}>
+        <div className="font-extrabold tracking-wide mb-3" style={{ fontSize: "22px", color: "#FFFFFF" }}>
           CAFÉ <span style={{ color: "#FFD700" }}>URBANO</span>
         </div>
-        <p className="text-sm text-white/90">Mallplaza Calama</p>
-        <p className="text-xs text-white/70">Av. Balmaceda 3242, Calama</p>
-        <div className="my-4 h-px bg-white/15" />
-        <p className="text-xs text-white/80">
-          <span className="font-semibold" style={{ color: "#FFD700" }}>Horario:</span> Lun a Dom · 10:00 — 21:30
+
+        <div style={{ color: "#CCCCCC", fontSize: "14px", lineHeight: 2 }}>
+          <p>📍 Av. Balmaceda 3242, Local BF 100-104</p>
+          <p>Calama, Antofagasta</p>
+        </div>
+
+        <div className="my-4 h-px" style={{ background: "rgba(255,255,255,0.1)" }} />
+
+        <div style={{ color: "#FFD700", fontSize: "15px", fontWeight: 700, marginBottom: "4px" }}>
+          🕐 Horarios de Atención
+        </div>
+        <div style={{ color: "#CCCCCC", fontSize: "14px", lineHeight: 2 }}>
+          <p>Lunes a Viernes: 8:30 — 21:00 hrs</p>
+          <p>Sábado y Domingo: 9:00 — 21:00 hrs</p>
+        </div>
+
+        <p style={{ color: "#FF6666", fontSize: "12px", marginTop: "16px", lineHeight: 1.5 }}>
+          ⚠️ Bebida incluida en menú del día lunes a viernes. Sábado y domingo se cobra por separado.
         </p>
+
         <a
           href="https://instagram.com"
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 mt-4 px-4 py-2 rounded-full bg-white/10 hover:bg-white/20 transition"
+          className="inline-flex items-center gap-2 mt-5 px-4 py-2 rounded-full transition"
+          style={{ background: "rgba(255,255,255,0.08)", color: "#FFFFFF" }}
           aria-label="Instagram"
         >
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -724,9 +739,9 @@ function Index() {
             <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
             <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
           </svg>
-          <span className="text-xs font-semibold">@cafeurbano</span>
+          <span style={{ fontSize: "12px", fontWeight: 600 }}>@cafeurbano</span>
         </a>
-        <p className="text-[10px] text-white/40 mt-5">© {new Date().getFullYear()} Café Urbano</p>
+        <p style={{ fontSize: "10px", color: "rgba(255,255,255,0.4)", marginTop: "16px" }}>© {new Date().getFullYear()} Café Urbano</p>
       </footer>
     </div>
   );
