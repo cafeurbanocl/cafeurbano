@@ -501,7 +501,7 @@ function Index() {
   const navLogoOpacity = progress;
 
   return (
-    <div className="min-h-screen" style={{ background: "#1a1a1a", fontFamily: "Poppins, system-ui, sans-serif" }}>
+    <div className="min-h-screen" style={{ background: "#111111", fontFamily: "Poppins, system-ui, sans-serif" }}>
       {/* HEADER */}
       {(() => {
         const bgOpacity = Math.min(1, scrollY / 80);
@@ -527,10 +527,10 @@ function Index() {
                 className="object-contain drop-shadow-2xl transition-all duration-200 ease-out"
               />
             </div>
-            <h1 className="text-white font-extrabold text-3xl tracking-tight mt-2" style={{ letterSpacing: "0.02em" }}>
+            <h1 className="font-extrabold mt-2" style={{ fontSize: "28px", fontWeight: 800, color: "#FFFFFF", textShadow: "0 2px 8px rgba(0,0,0,0.8)" }}>
               Café Urbano
             </h1>
-            <p className="mt-1 text-xs font-medium" style={{ color: "#FFD700" }}>
+            <p className="mt-1" style={{ fontSize: "12px", color: "#FFD700", textShadow: "0 1px 4px rgba(0,0,0,0.9)", letterSpacing: "1px" }}>
               Sabor casero, ambiente urbano — Mallplaza Calama
             </p>
           </header>
@@ -541,24 +541,24 @@ function Index() {
 
 
       {/* MENÚ DEL DÍA BANNER */}
-      <div className="px-4 py-4 border-y-2" style={{ background: "#CC0000", borderColor: "#FFD700" }}>
+      <div style={{ background: "#8B0000", borderBottom: "2px solid #FFD700", padding: "16px 20px" }}>
         <div className="text-center">
-          <div className="font-extrabold text-xl mb-1" style={{ color: "#FFD700" }}>
+          <div className="mb-1" style={{ fontSize: "16px", fontWeight: 700, color: "#FFD700" }}>
             ⭐ MENÚ DEL DÍA ⭐
           </div>
-          <p className="text-xs leading-relaxed text-white/95">
-            <span style={{ color: "#FFD700" }} className="font-bold">2 entradas</span> (caliente o fría) ·{" "}
-            <span style={{ color: "#FFD700" }} className="font-bold">3–4 fondos</span> a elección (incluye hipocalórico) ·{" "}
-            <span style={{ color: "#FFD700" }} className="font-bold">postre</span> a elección
+          <p style={{ fontSize: "14px", color: "#FFFFFF", lineHeight: 2 }}>
+            <span style={{ color: "#FFD700", fontWeight: 700 }}>2 entradas</span> (caliente o fría) ·{" "}
+            <span style={{ color: "#FFD700", fontWeight: 700 }}>3–4 fondos</span> a elección (incluye hipocalórico) ·{" "}
+            <span style={{ color: "#FFD700", fontWeight: 700 }}>postre</span> a elección
           </p>
-          <p className="text-[11px] mt-1.5 text-white/90">
-            Bebida <span style={{ color: "#FFD700" }} className="font-bold">incluida lunes a viernes</span> · separada sábado y domingo
+          <p style={{ fontSize: "13px", color: "#FFFFFF", lineHeight: 1.8 }}>
+            Bebida <span style={{ color: "#FFD700", fontWeight: 700 }}>incluida lunes a viernes</span> · separada sábado y domingo
           </p>
         </div>
       </div>
 
       {/* STICKY CATEGORY BAR */}
-      <nav className="sticky top-0 z-40 shadow-lg" style={{ background: "#1a1a1a", borderBottom: "2px solid #CC0000" }}>
+      <nav className="sticky top-0 z-40 shadow-lg" style={{ background: "#111111", borderBottom: "2px solid #CC0000" }}>
         <div className="flex items-center gap-2 px-3 py-2.5">
           <img
             src={logoUrbano}
@@ -573,10 +573,15 @@ function Index() {
                 <button
                   key={s.id}
                   onClick={() => scrollTo(s.id)}
-                  className="shrink-0 px-4 py-2 rounded-full text-xs font-bold whitespace-nowrap transition-all"
+                  className="shrink-0 whitespace-nowrap transition-all"
                   style={{
-                    background: isActive ? "#CC0000" : "#333",
-                    color: isActive ? "#fff" : "#ddd",
+                    fontSize: "13px",
+                    fontWeight: 600,
+                    padding: "8px 16px",
+                    borderRadius: "20px",
+                    background: isActive ? "#CC0000" : "#2a2a2a",
+                    color: isActive ? "#FFFFFF" : "#BBBBBB",
+                    border: isActive ? "1px solid #CC0000" : "1px solid #444",
                     boxShadow: isActive ? "0 4px 10px rgba(204,0,0,0.4)" : "none",
                   }}
                 >
@@ -598,17 +603,17 @@ function Index() {
                 key={section.id}
                 id={section.id}
                 ref={(el) => { sectionRefs.current[section.id] = el; }}
-                className="rounded-xl overflow-hidden shadow-xl scroll-mt-32"
-                style={{ background: "#2a2a2a", border: "1px solid #333" }}
+                className="rounded-xl overflow-hidden scroll-mt-32"
+                style={{ background: "#2a2a2a", border: "1px solid #444444", boxShadow: "0 4px 12px rgba(0,0,0,0.4)" }}
               >
                 <button
                   onClick={() => toggle(section.id)}
-                  className="w-full flex items-center justify-between px-4 py-4"
-                  style={{ background: "#222" }}
+                  className="w-full flex items-center justify-between"
+                  style={{ background: "#1e1e1e", borderBottom: "2px solid #CC0000", padding: "14px 20px" }}
                 >
                   <h2
-                    className="font-extrabold text-lg tracking-wide uppercase text-left"
-                    style={{ color: "#CC0000" }}
+                    className="text-left"
+                    style={{ fontSize: "18px", fontWeight: 800, color: "#FF2222", textTransform: "uppercase", letterSpacing: "1.5px" }}
                   >
                     <span className="mr-2">{section.emoji}</span>
                     {section.title}
@@ -627,18 +632,31 @@ function Index() {
                     <div className="px-3 pt-3 pb-4">
                       {section.note && (
                         <div
-                          className="mb-3 px-3 py-2 rounded-lg text-[11px] italic"
-                          style={{ background: "rgba(255,215,0,0.08)", color: "#FFD700", border: "1px solid rgba(255,215,0,0.25)" }}
+                          className="mb-3"
+                          style={{
+                            fontSize: "13px",
+                            color: "#FFD700",
+                            background: "rgba(139,0,0,0.3)",
+                            padding: "8px 12px",
+                            borderRadius: "6px",
+                            borderLeft: "3px solid #CC0000",
+                          }}
                         >
                           {section.note}
                         </div>
                       )}
-                      <ul className="space-y-2.5">
+                      <ul className="flex flex-col" style={{ gap: "16px" }}>
                         {section.items.map((it, i) => (
                           <li
                             key={i}
-                            className="flex gap-3 rounded-xl p-2.5"
-                            style={{ background: "#2a2a2a", border: "1px solid #333" }}
+                            className="flex gap-3"
+                            style={{
+                              background: "#2a2a2a",
+                              border: "1px solid #444444",
+                              padding: "16px",
+                              borderRadius: "12px",
+                              boxShadow: "0 4px 12px rgba(0,0,0,0.4)",
+                            }}
                           >
                             <img
                               src={it.img}
@@ -656,15 +674,17 @@ function Index() {
                             />
                             <div className="flex-1 min-w-0 flex flex-col justify-between">
                               <div>
-                                <h3 className="font-bold text-sm leading-tight text-white">{it.name}</h3>
+                                <h3 style={{ fontSize: "16px", fontWeight: 700, color: "#FFFFFF", letterSpacing: "0.3px", lineHeight: 1.25 }}>
+                                  {it.name}
+                                </h3>
                                 {it.desc && (
-                                  <p className="text-[11px] italic mt-1 leading-snug" style={{ color: "#aaa" }}>
+                                  <p style={{ fontSize: "13px", color: "#CCCCCC", lineHeight: 1.6, fontStyle: "italic", marginTop: "4px" }}>
                                     {it.desc}
                                   </p>
                                 )}
                               </div>
-                              <div className="mt-1.5">
-                                <span className="font-bold text-lg" style={{ color: "#FFD700" }}>
+                              <div style={{ marginTop: "8px" }}>
+                                <span style={{ fontSize: "18px", fontWeight: 800, color: "#FFD700", letterSpacing: "0.5px" }}>
                                   {it.price}
                                 </span>
                               </div>
