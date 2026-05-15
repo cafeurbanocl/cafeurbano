@@ -503,26 +503,42 @@ function Index() {
   return (
     <div className="min-h-screen" style={{ background: "#1a1a1a", fontFamily: "Poppins, system-ui, sans-serif" }}>
       {/* HEADER */}
-      <header className="px-5 pt-6 pb-5 text-center shadow-xl" style={{ background: "#8B0000" }}>
-        <div
-          className="mx-auto flex items-center justify-center transition-all duration-300 ease-out"
-          style={{ height: `${baseSize * (1 - progress) + 8}px`, opacity: headerLogoOpacity }}
-          aria-hidden={progress > 0.95}
-        >
-          <img
-            src={logoUrbano}
-            alt="Café Urbano logo"
-            style={{ width: `${logoSize}px`, height: `${logoSize}px` }}
-            className="object-contain drop-shadow-2xl transition-all duration-200 ease-out"
-          />
-        </div>
-        <h1 className="text-white font-extrabold text-3xl tracking-tight mt-2" style={{ letterSpacing: "0.02em" }}>
-          Café Urbano
-        </h1>
-        <p className="mt-1 text-xs font-medium" style={{ color: "#FFD700" }}>
-          Sabor casero, ambiente urbano — Mallplaza Calama
-        </p>
-      </header>
+      {(() => {
+        const bgOpacity = Math.min(1, scrollY / 80);
+        const isSolid = scrollY >= 80;
+        return (
+          <header
+            className="fixed top-0 left-0 right-0 px-5 pt-6 pb-5 text-center transition-[background,box-shadow] duration-150 ease-out"
+            style={{
+              background: isSolid ? "#8B0000" : `rgba(139, 0, 0, ${bgOpacity})`,
+              boxShadow: isSolid ? "0 2px 12px rgba(0,0,0,0.4)" : "none",
+              zIndex: 1000,
+            }}
+          >
+            <div
+              className="mx-auto flex items-center justify-center transition-all duration-300 ease-out"
+              style={{ height: `${baseSize * (1 - progress) + 8}px`, opacity: headerLogoOpacity }}
+              aria-hidden={progress > 0.95}
+            >
+              <img
+                src={logoUrbano}
+                alt="Café Urbano logo"
+                style={{ width: `${logoSize}px`, height: `${logoSize}px` }}
+                className="object-contain drop-shadow-2xl transition-all duration-200 ease-out"
+              />
+            </div>
+            <h1 className="text-white font-extrabold text-3xl tracking-tight mt-2" style={{ letterSpacing: "0.02em" }}>
+              Café Urbano
+            </h1>
+            <p className="mt-1 text-xs font-medium" style={{ color: "#FFD700" }}>
+              Sabor casero, ambiente urbano — Mallplaza Calama
+            </p>
+          </header>
+        );
+      })()}
+      {/* spacer to offset fixed header */}
+      <div style={{ height: `${baseSize * (1 - progress) + 8 + 80}px` }} aria-hidden />
+
 
       {/* MENÚ DEL DÍA BANNER */}
       <div className="px-4 py-4 border-y-2" style={{ background: "#CC0000", borderColor: "#FFD700" }}>
