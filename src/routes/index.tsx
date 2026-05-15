@@ -527,10 +527,10 @@ function Index() {
                 className="object-contain drop-shadow-2xl transition-all duration-200 ease-out"
               />
             </div>
-            <h1 className="text-white font-extrabold text-3xl tracking-tight mt-2" style={{ letterSpacing: "0.02em" }}>
+            <h1 className="font-extrabold mt-2" style={{ fontSize: "28px", fontWeight: 800, color: "#FFFFFF", textShadow: "0 2px 8px rgba(0,0,0,0.8)" }}>
               Café Urbano
             </h1>
-            <p className="mt-1 text-xs font-medium" style={{ color: "#FFD700" }}>
+            <p className="mt-1" style={{ fontSize: "12px", color: "#FFD700", textShadow: "0 1px 4px rgba(0,0,0,0.9)", letterSpacing: "1px" }}>
               Sabor casero, ambiente urbano — Mallplaza Calama
             </p>
           </header>
