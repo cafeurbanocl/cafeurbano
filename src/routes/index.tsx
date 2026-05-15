@@ -250,7 +250,7 @@ const SECTIONS: Section[] = [
       { name: "Americano", price: "$8.200", desc: "Churrasco o ave, jamón, queso fundido y huevo frito.", img: img("american-sandwich") },
       { name: "Chacarero", price: "$8.100", desc: "Churrasco o ave, tomate, porotos verdes y ají verde.", img: img("chacarero") },
       { name: "Suizo", price: "$7.900", desc: "Churrasco o ave, tomate, jamón, queso fundido y tocino.", img: img("swiss-sandwich") },
-      { name: "Pizza", price: "$7.900", desc: "Jamón, tomate, orégano y queso fundido.", img: img("pizza-sandwich") },
+      { name: "Pizza Sandwich", price: "$7.900", desc: "Jamón, tomate, orégano y queso fundido — inspirado en los sabores de una pizza clásica", img: "https://images.unsplash.com/photo-1590947132387-155cc02f3212?w=400&h=250&fit=crop" },
       { name: "Griego", price: "$7.900", desc: "Churrasco o ave, lechuga, tomate y huevo frito.", img: img("greek-sandwich") },
       { name: "Francés", price: "$7.800", desc: "Churrasco o ave, palta, tomate y lechuga.", img: img("french-sandwich") },
       { name: "Romano", price: "$7.800", desc: "Churrasco o ave, jamón, queso fundido y aceitunas.", img: img("roman-sandwich") },
