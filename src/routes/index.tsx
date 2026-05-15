@@ -594,7 +594,7 @@ function Index() {
       </nav>
 
       {/* SECTIONS */}
-      <main className="pb-10">
+      <main style={{ paddingBottom: "200px" }}>
         <div className="space-y-3 px-3 pt-4">
           {SECTIONS.map((section) => {
             const isOpen = !!open[section.id];
